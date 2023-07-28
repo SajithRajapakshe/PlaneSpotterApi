@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlaneSpotterBL.Models
 {
+    /// <summary>
+    /// Base Business model for setting / getting aircraft details
+    /// </summary>
     public class AircraftSpotterDetailModel
     {
-
         public Guid RecordId { get; set; }
         [Required]
         [StringLength(128)]

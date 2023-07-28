@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace PlaneSpotterBL.Mappers
 {
+    /// <summary>
+    /// Mapping of objects between business and data models
+    /// </summary>
     public class ObjectMapper : Profile
     {
         public ObjectMapper()

@@ -13,6 +13,7 @@ namespace PlaneSpotterApi.Extensions
         {
             services.AddTransient<IAircraftSpotterRepository, AircraftSpotterRepository>();
             services.AddTransient<IAircraftSpotterService, AircraftSpotterService>();
+            services.AddTransient<IImageFileService, ImageFileService>();
         }
     }
 }

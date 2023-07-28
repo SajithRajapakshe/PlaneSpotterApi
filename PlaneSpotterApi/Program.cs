@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PlaneSpotterApi.Extensions;
+using PlaneSpotterApi.Middlewares;
 using PlaneSpotterBL.Mappers;
 using PlaneSpotterBL.Services;
 using PlaneSpotterDL;
@@ -39,7 +40,7 @@ namespace PlaneSpotterApi
 
             var app = builder.Build();
 
-
+            app.UseMiddleware<ExceptionMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -53,6 +54,8 @@ namespace PlaneSpotterApi
             app.Services.GetService<DBContext>().Database.Migrate();
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+            app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
 
             app.UseAuthorization();
 

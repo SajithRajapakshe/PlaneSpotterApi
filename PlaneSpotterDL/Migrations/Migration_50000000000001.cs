@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PlaneSpotterDL.Migrations
 {
+    /// <summary>
+    /// Migration scripts for the table AircraftSpotters
+    /// </summary>
     [DbContext(typeof(DBContext))]
     [Migration("Migration_50000000000001")]
     public class Migration_50000000000001 : Migration

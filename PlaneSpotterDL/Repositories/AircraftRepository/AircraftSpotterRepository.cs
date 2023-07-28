@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PlaneSpotterDL.Repositories.AircraftRepository
 {
+    /// <summary>
+    /// Repository for Aircraft spotter db operations
+    /// </summary>
     public class AircraftSpotterRepository : IAircraftSpotterRepository
     {
         private readonly DBContext _dbContext;
@@ -16,12 +19,23 @@ namespace PlaneSpotterDL.Repositories.AircraftRepository
         {
             this._dbContext = dbContext;
         }
+
+        /// <summary>
+        /// Creates a new record in DB
+        /// </summary>
+        /// <param name="aircraftDetail"></param>
+        /// <returns></returns>
         public async Task CreateSpotterRecord(AircraftSpotterDataModel aircraftDetail)
         {
             await _dbContext.Set<AircraftSpotterDataModel>().AddAsync(aircraftDetail);
             await _dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Deletes a spotter record from DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<AircraftSpotterDataModel>> DeleteSpotterRecord(Guid id)
         {
             var existingRecord = await GetSpotterRecordById(id);
@@ -31,6 +45,11 @@ namespace PlaneSpotterDL.Repositories.AircraftRepository
             return await _dbContext.Set<AircraftSpotterDataModel>().ToListAsync();
         }
 
+        /// <summary>
+        /// Get all spotter details from DB
+        /// </summary>
+        /// <param name="searchKeyword"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<AircraftSpotterDataModel>> GetAllSpotterRecords(string searchKeyword)
         {
             return searchKeyword != string.Empty ? 
@@ -38,11 +57,22 @@ namespace PlaneSpotterDL.Repositories.AircraftRepository
                    : await _dbContext.Set<AircraftSpotterDataModel>().ToListAsync();
         }
 
+        /// <summary>
+        /// Get a spotter record by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<AircraftSpotterDataModel> GetSpotterRecordById(Guid id)
         {
             return await _dbContext.Set<AircraftSpotterDataModel>().FirstOrDefaultAsync(x => x.RecordId == id);
         }
 
+
+        /// <summary>
+        /// Edit a spotter record in the db
+        /// </summary>
+        /// <param name="aircraftDetail"></param>
+        /// <returns></returns>
         public async Task UpdateSpotterRecord(AircraftSpotterDataModel aircraftDetail)
         {
             _dbContext.Set<AircraftSpotterDataModel>().Update(aircraftDetail);
