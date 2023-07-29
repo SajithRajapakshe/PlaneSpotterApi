@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using PlaneSpotterBL;
+using System.Security.Claims;
 using System.Text;
 
 namespace PlaneSpotterApi.Middlewares
@@ -9,7 +10,6 @@ namespace PlaneSpotterApi.Middlewares
     public class ApiKeyAuthenticationMiddleware
     {
         private readonly RequestDelegate _next;
-        private const string ApiKey = "XApiKey";
 
         // Dependency Injection
         public ApiKeyAuthenticationMiddleware(RequestDelegate next)
@@ -24,11 +24,10 @@ namespace PlaneSpotterApi.Middlewares
         /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
-
             var appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
-            var apiKey = appSettings.GetValue<string>(ApiKey);
+            var apiKey = appSettings.GetValue<string>(Constants.ApiAuthKey);
 
-            if (!context.Request.Headers.TryGetValue(ApiKey, out var apiKeyVal) || !apiKey.Equals(apiKeyVal))
+            if (!context.Request.Headers.TryGetValue(Constants.ApiAuthKey, out var apiKeyVal) || !apiKey.Equals(apiKeyVal))
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Unauthorized User");

@@ -36,8 +36,8 @@ namespace PlaneSpotterBL.Models
         [SpottedDateValidator]
         public DateTime SpottedDate { get; set; }
 
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
 
-        public IFormFile FormFile { get; set; }
+        public IFormFile? FormFile { get; set; }
     }
 }

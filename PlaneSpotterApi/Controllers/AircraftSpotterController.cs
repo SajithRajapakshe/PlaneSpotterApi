@@ -8,7 +8,7 @@ namespace PlaneSpotterApi.Controllers
     [ApiController]
     public class AircraftSpotterController : ControllerBase
     {
-        
+
         private readonly IAircraftSpotterService _service;
         private readonly IImageFileService _imageFileService;
 
@@ -44,8 +44,11 @@ namespace PlaneSpotterApi.Controllers
         [HttpPost]
         public async Task CreateNewSpotter([FromForm] AircraftSpotterDetailModel aircraftSpotterDetail)
         {
-            var base64Image = _imageFileService.ConvertImageFileToBase64(aircraftSpotterDetail.FormFile);
-            aircraftSpotterDetail.FilePath = base64Image;
+            if (aircraftSpotterDetail.FormFile != null)
+            {
+                var base64Image = _imageFileService.ConvertImageFileToBase64(aircraftSpotterDetail.FormFile);
+                aircraftSpotterDetail.FilePath = base64Image;
+            }
             await _service.CreateSpotterRecord(aircraftSpotterDetail);
         }
 
@@ -70,8 +73,11 @@ namespace PlaneSpotterApi.Controllers
         [HttpPost]
         public async Task UpdateAircraftSpotter([FromForm] AircraftSpotterDetailModel aircraftSpotterDetail)
         {
-            var base64Image = _imageFileService.ConvertImageFileToBase64(aircraftSpotterDetail.FormFile);
-            aircraftSpotterDetail.FilePath = base64Image;
+            if (aircraftSpotterDetail.FormFile != null)
+            {
+                var base64Image = _imageFileService.ConvertImageFileToBase64(aircraftSpotterDetail.FormFile);
+                aircraftSpotterDetail.FilePath = base64Image;
+            }
             await _service.UpdateSpotterRecord(aircraftSpotterDetail);
         }
 

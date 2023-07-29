@@ -20,6 +20,6 @@ namespace PlaneSpotterDL.DataModels
         public string Registration { get; set; }
         public string Location { get; set; }
         public DateTime SpottedDate { get; set; }
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
     }
 }

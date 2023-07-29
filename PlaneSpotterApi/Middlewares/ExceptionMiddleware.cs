@@ -43,6 +43,8 @@ namespace PlaneSpotterApi.Middlewares
                     new ApiErrorResponse(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString()) :
                     new ApiErrorResponse(context.Response.StatusCode, "Internal Server Error, please contact your system administrator");
 
+                _logger.Log(LogLevel.Error, ex.Message, ex.StackTrace);
+
                 await context.Response.WriteAsync(httpResponse.GetJsonResponse(httpResponse));
 
             }
@@ -59,9 +61,9 @@ namespace PlaneSpotterApi.Middlewares
             public string StackTrace { get; set; }
             public ApiErrorResponse(int statusCode, string message = "", string stackTrace = "")
             {
-                StatusCode=statusCode;
-                Message=message;
-                StackTrace=stackTrace;
+                StatusCode = statusCode;
+                Message = message;
+                StackTrace = stackTrace;
             }
 
             public string GetJsonResponse(ApiErrorResponse httpResponse)

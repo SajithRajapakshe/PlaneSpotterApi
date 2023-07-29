@@ -27,7 +27,7 @@ namespace PlaneSpotterDL.Migrations
                  Registration = table.Column<string>(type: "nvarchar(max)", nullable: false),
                  Location = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                  SpottedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                 FilePath = table.Column<DateTime>(type: "nvarchar(max)", nullable: false, defaultValue: "")
+                 FilePath = table.Column<DateTime>(type: "nvarchar(max)", nullable: true, defaultValue: "")
              },
              constraints: table =>
              {
